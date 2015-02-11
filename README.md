@@ -1,6 +1,6 @@
 ## cube-emu
 
-pyhton emulator for CubeSat on-board systems.
+pyhton emulator for Cubesat on-board systems.
 
 ### Requires
 
