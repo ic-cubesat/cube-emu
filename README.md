@@ -4,7 +4,7 @@ pyhton emulator for Cubesat on-board systems.
 
 ### Requires
 
-1. Pyhton 2.7
+1. Python 2.7
 2. [pip](https://pypi.python.org/pypi/pip/)
 3. [GNU Make](http://www.gnu.org/software/make/manual/make.html)
 
