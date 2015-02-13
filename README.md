@@ -9,7 +9,7 @@ pyhton emulator for Cubesat on-board systems.
 3. [GNU Make](http://www.gnu.org/software/make/manual/make.html)
 
 ```
-pip install --user nosetests coverage
+pip install nose coverage
 ```
 
 ### Instructions
