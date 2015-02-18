@@ -1,13 +1,13 @@
 import os
 from PIL import Image
 def compressLoop(infile , times):
-	n=1
+	n=2
 	base, e = os.path.splitext(infile)
 	try:
 			f,e = os.path.splitext(infile)
 			f = (base + str(n))
 			outfile = f + ".jpg"
-			compImg = Image.open(infile)
+			compImg = Image.open(infile).convert("L")
 			compImg.save(outfile, "JPEG", quality = 10)
 			infile = outfile 
 	except IOError:
