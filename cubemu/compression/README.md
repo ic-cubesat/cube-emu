@@ -24,4 +24,4 @@ sudo pip install Pillow
 
 ### Instructions
 
-Run testimage.py. Enter name of file to compress (testimage.jpg). Output is testimage1.jpg
+Run testimage.py. This takes the input image (testimage.jpg) and compresses it (testimage_compressed.jpg)
