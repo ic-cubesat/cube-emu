@@ -36,7 +36,7 @@ def compressionTests(origFile='testimage.jpg'):
         end = time.clock()
         t = end-start;
 
-        print "Quality = %d, time taken = %f seconds, compression ratio is %f" % (quality, t, compRatio(origFile,outFile))
+        print "Quality = %d, time taken = %f seconds, compression ratio is %f\n" % (quality, t, compRatio(origFile,outFile))
 
 ## Main
 if __name__ == "__main__":
