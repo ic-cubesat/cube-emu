@@ -1,4 +1,5 @@
 import os
+import time
 from PIL import Image
 
 def generateOutfile(infile):
@@ -29,8 +30,13 @@ def compRatio(origFile,compFile):
 def compressionTests(origFile='testimage.jpg'):
     for quality in range(10,100,10):
         outFile = appendFilename(origFile,quality)
+
+        start = time.clock()
         compress(origFile,outFile,quality=quality)
-        print "Quality = %d, compression ratio is %f" % (quality,compRatio(origFile,outFile))
+        end = time.clock()
+        t = end-start;
+
+        print "Quality = %d, time taken = %f seconds, compression ratio is %f" % (quality, t, compRatio(origFile,outFile))
 
 ## Main
 if __name__ == "__main__":

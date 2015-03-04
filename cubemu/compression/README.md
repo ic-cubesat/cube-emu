@@ -25,4 +25,4 @@ sudo pip install Pillow
 ### Instructions
 
 To do a quick test, run testimage.py. This takes the input image (testimage.jpg) and compresses it (testimage_compressed.jpg).
-To run other tests, import using `from testimage import *` then run `compressionTests()`. 
+To run other tests, import using `from testimage import *` then run `compressionTests('boat.jpg')` for example. 
