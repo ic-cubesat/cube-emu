@@ -5,6 +5,10 @@ def generateOutfile(infile):
 	base,e = os.path.splitext(infile)
 	return base+"_compressed.jpg"
 
+def appendFilename(infile,i):
+    base,e = os.path.splitext(infile)
+    return base+"_%03d.jpg" % i
+
 def compress(infile,outfile,algorithm='JPEG',quality=10,BW=False):
     try:
         if BW: # black and white
@@ -21,6 +25,12 @@ def compRatio(origFile,compFile):
     origSize = os.path.getsize(origFile)
     compSize = os.path.getsize(compFile)
     return float(compSize)/float(origSize)
+
+def compressionTests(origFile='testimage.jpg'):
+    for quality in range(10,100,10):
+        outFile = appendFilename(origFile,quality)
+        compress(origFile,outFile,quality=quality)
+        print "Quality = %d, compression ratio is %f" % (quality,compRatio(origFile,outFile))
 
 ## Main
 if __name__ == "__main__":
