@@ -13,8 +13,14 @@ def compress(infile,outfile,algorithm='JPEG',quality=10):
 	except IOError:
 		print "cannot convert", infile
 
-## Main
-infile = 'testimage.jpg'
-outfile = generateOutfile(infile)
-compress(infile,outfile)
+def compRatio(origFile,compFile):
+    origSize = os.path.getsize(origFile)
+    compSize = os.path.getsize(compFile)
+    return float(compSize)/float(origSize)
 
+## Main
+if __name__ == "__main__":
+    infile = 'testimage.jpg'
+    outfile = generateOutfile(infile)
+    compress(infile,outfile)
+    print "Compression ratio is %f" % compRatio(infile,outfile)
