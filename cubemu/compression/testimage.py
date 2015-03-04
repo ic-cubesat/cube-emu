@@ -5,13 +5,17 @@ def generateOutfile(infile):
 	base,e = os.path.splitext(infile)
 	return base+"_compressed.jpg"
 
-def compress(infile,outfile,algorithm='JPEG',quality=10):
-	try:
-		compImg = Image.open(infile).convert("L")
-		compImg.save(outfile,algorithm,quality=quality)
-		print "compressed %s to %s" % (infile,outfile)
-	except IOError:
-		print "cannot convert", infile
+def compress(infile,outfile,algorithm='JPEG',quality=10,BW=False):
+    try:
+        if BW: # black and white
+            compImg = Image.open(infile).convert("L")
+        else:  # full colour
+            compImg = Image.open(infile)
+        compImg.save(outfile,algorithm,quality=quality)
+        print "compressed %s to %s" % (infile,outfile)
+
+    except IOError:
+        print "cannot convert", infile
 
 def compRatio(origFile,compFile):
     origSize = os.path.getsize(origFile)
