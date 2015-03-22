@@ -9,9 +9,8 @@ from camera import webcam
 
 def process(command):
     if command.code == basic.READ_TEMP:
-        return sensors.read(command.target)
-    else:
-        # XXX ensure this has the correct format for transmission
+        return str(sensors.read(command.target))
+    elif command.code == basic.TAKE_PICTURE:
         return webcam.takePicture()[0]
     return None
 
@@ -35,7 +34,7 @@ def main():
           result = process(command)
           print ' = ', result
           pprint('[Send]')
-          connhandler.send(command, str(result))
+          connhandler.send(command, result)
           pprint('[Sleep]')
           print '...'
           time.sleep(5)

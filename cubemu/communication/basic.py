@@ -3,12 +3,12 @@
 import socket
 
 READ_TEMP = 0
+TAKE_PICTURE = 1
 
-commands = ['READ_TEMP']
-
+commands = ['READ_TEMP', 'TAKE_PICTURE']
 
 class Command(object):
-    def __init__(self, code, target):
+    def __init__(self, code, target = None):
         self.code = code
         self.target = target
         self.conn = None
@@ -32,7 +32,7 @@ class ConnectionHandler(object):
   """Handles communication with ground station."""
 
   def __init__(self):
-    HOST = 'localhost'
+    HOST = '0.0.0.0' # localhost'
     PORT = 3000
     self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     self.s.bind((HOST, PORT))
@@ -41,11 +41,23 @@ class ConnectionHandler(object):
     if data == 'TMP_READ':
       # XXX sensor name should be a param of the request
       return Command(READ_TEMP, 'temp1')
+    elif data == 'TAKE_PICTURE':
+      return Command(TAKE_PICTURE)
+    else:
+      print 'ERROR -- command unparse failed - not supported'
     return None
 
   def send(self, command, result):
     """This is our interface with the communications infrastructure."""
-    command.conn.sendall(result)
+    if command.code == TAKE_PICTURE:
+      f = open('filename.jpg')
+      while 1:
+        chunk = f.read(1024)
+        if not chunk:
+          break
+        command.conn.send(chunk)
+    else:
+      command.conn.sendall(result)
     command.conn.close()
 
   def readCommandQueue(self):
