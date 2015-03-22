@@ -5,7 +5,6 @@ import time
 from communication import basic
 from monitoring import sensors
 
-
 def process(command):
     if command.code == basic.READ_TEMP:
         return sensors.read(command.target)
@@ -18,20 +17,23 @@ def pprint(string):
 
 def main():
 
+    connhandler = basic.ConnectionHandler()
+
     while True:
+        print "Waiting for command..."
         pprint('[CmdRead]')
-        command = basic.readCommandQueue()
+        command = connhandler.readCommandQueue()
         print command
 
         if command:
-            pprint('[Process]')
-            result = process(command)
-            print ' = ', result
-            pprint('[Send]')
-            basic.send(basic.DataPacket(result))
-            pprint('[Sleep]')
-            print '...'
-            time.sleep(5)
+          pprint('[Process]')
+          result = process(command)
+          print ' = ', result
+          pprint('[Send]')
+          connhandler.send(command, str(result))
+          pprint('[Sleep]')
+          print '...'
+          time.sleep(5)
 
 
 if __name__ == '__main__':

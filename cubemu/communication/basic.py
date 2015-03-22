@@ -1,5 +1,7 @@
 """On-board communication module."""
 
+import socket
+
 READ_TEMP = 0
 
 commands = ['READ_TEMP']
@@ -9,6 +11,7 @@ class Command(object):
     def __init__(self, code, target):
         self.code = code
         self.target = target
+        self.conn = None
 
     def __str__(self):
         return str(commands[self.code]) + ' ' + str(self.target)
@@ -25,11 +28,36 @@ class DataPacket(object):
         return self.data
 
 
-def send(dataPacket):
+class ConnectionHandler(object):
+  """Handles communication with ground station."""
+
+  def __init__(self):
+    HOST = 'localhost'
+    PORT = 3000
+    self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    self.s.bind((HOST, PORT))
+
+  def _unparse(self, data):
+    if data == 'TMP_READ':
+      # XXX sensor name should be a param of the request
+      return Command(READ_TEMP, 'temp1')
+    return None
+
+  def send(self, command, result):
     """This is our interface with the communications infrastructure."""
-    print dataPacket.serialize()
+    command.conn.sendall(result)
+    command.conn.close()
 
-
-def readCommandQueue():
-    """Returns the first command in the command queue."""
-    return Command(READ_TEMP, 'temp1')
+  def readCommandQueue(self):
+    """Waits for a command from the ground station."""
+    self.s.listen(1)
+    conn, addr = self.s.accept()
+    while 1:
+      data = conn.recv(1024)
+      if not data:
+        break
+      # XXX should merge data for large requests
+      command = self._unparse(data)
+      command.conn = conn
+      return command
+    return None
