@@ -32,14 +32,14 @@ def main():
         print command
 
         if command:
-          pprint('[Process]')
-          result = process(command)
-          print ' = ', result
-          pprint('[Send]')
-          connhandler.send(command, result)
-          pprint('[Sleep]')
-          print '...'
-          time.sleep(5)
+            pprint('[Process]')
+            result = process(command)
+            print ' = ', result
+            pprint('[Send]')
+            connhandler.send(command, result)
+            pprint('[Sleep]')
+            print '...'
+            time.sleep(5)
 
 
 if __name__ == '__main__':
