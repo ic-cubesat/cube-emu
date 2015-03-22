@@ -32,7 +32,7 @@ class ConnectionHandler(object):
   """Handles communication with ground station."""
 
   def __init__(self):
-    HOST = 'localhost'
+    HOST = '0.0.0.0' # localhost'
     PORT = 3000
     self.s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     self.s.bind((HOST, PORT))
@@ -49,7 +49,15 @@ class ConnectionHandler(object):
 
   def send(self, command, result):
     """This is our interface with the communications infrastructure."""
-    command.conn.sendall(result)
+    if command.code == TAKE_PICTURE:
+      f = open('filename.jpg')
+      while 1:
+        chunk = f.read(1024)
+        if not chunk:
+          break
+        command.conn.send(chunk)
+    else:
+      command.conn.sendall(result)
     command.conn.close()
 
   def readCommandQueue(self):
