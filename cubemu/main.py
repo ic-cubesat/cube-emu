@@ -4,10 +4,15 @@ import time
 
 from communication import basic
 from monitoring import sensors
+from camera import webcam
+
 
 def process(command):
     if command.code == basic.READ_TEMP:
         return sensors.read(command.target)
+    else:
+        # XXX ensure this has the correct format for transmission
+        return webcam.takePicture()[0]
     return None
 
 
