@@ -106,15 +106,17 @@ def check(data):
 
 def main():
   signal.signal(signal.SIGINT, signal_handler)
-  time.sleep(1) #needed for some reason...
-
   serial_port = sys.argv[1]
+  file_path = sys.argv[2]
+  f = open(str(file_path) , 'rb')
+  contents = f.read()
   global ser
   ser = serial.Serial(serial_port, 57600, timeout = 0.1, interCharTimeout = None)
+  time.sleep(1) #needed for some reason...
   print("connected to: " + ser.portstr)
   print "Initial Reading: ", ser.readline()
   time.sleep(0.2)
-  data_array = format_string("1234567890")
+  data_array = format_string(contents)
   print "Data_array" , data_array, check(data_array[0])
   data = raw_input("Send?")
   if(data != '0'):

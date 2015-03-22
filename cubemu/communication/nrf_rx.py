@@ -20,7 +20,6 @@ def check(data):
 
 def signal_handler(signal, frame):
     print 'You pressed Ctrl+C!'
-    #target.close()
     ser.close()
     sys.exit(0)
 
@@ -38,29 +37,11 @@ def strip(data):
             output = output + data[i]
     return output
 
-#filename = strftime("%Y%m%d%H%M%S", gmtime()) + ".jpeg"
-
 signal.signal(signal.SIGINT, signal_handler)
-
-#print "Opening the file..."
-
-#target = open(filename, 'wb')
-#target.truncate()
 
 received = []
 receive = 1
 while receive == 1:
-    """"
-    for line in ser.readline():
-        print(count, line)
-        #target.write(line)
-        #target.flush()
-        if line == '\n':
-            print "Writing 1"
-            ser.write("T:S:1")
-            ser.write("\n)
-        count = count+1
-    """
     content = ser.readline()
     content = strip_endline(content)
     if content != '':
@@ -74,15 +55,6 @@ while receive == 1:
                 print received
                 for i in range(len(received)):
                     received[i] = strip(received[i])
-
                 print received
-        """
-        elif 'end' in content:
-            receive = 0
-            print "END DETECTED!! Writing ack"
-            received.append(content)
-            ser.write("T:S:" + str(check(content)) + "\n")
-            print "Done Writing"
-            print "Received: " , received
-        """
+
 ser.close()
