@@ -58,12 +58,12 @@ def main():
                         received[i] = strip(received[i])
                     print received
     f = open(file_path, 'wb')
-	data = []
-	for i in received:
-		data.extend(i)
-	f.write(data)
-	f.close()
-	ser.close()
+    data = []
+    for i in received:
+    	data.extend(i)
+    f.write(data)
+    f.close()
+    ser.close()
 
 
 if __name__ == '__main__':
