@@ -12,6 +12,10 @@ pyhton emulator for Cubesat on-board systems.
 pip install nose coverage
 ```
 
+```
+apt-get install python-pygame
+```
+
 ### Instructions
 
 To run the main emulator loop:
