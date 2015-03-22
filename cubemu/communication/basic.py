@@ -3,12 +3,12 @@
 import socket
 
 READ_TEMP = 0
+TAKE_PICTURE = 1
 
-commands = ['READ_TEMP']
-
+commands = ['READ_TEMP', 'TAKE_PICTURE']
 
 class Command(object):
-    def __init__(self, code, target):
+    def __init__(self, code, target = None):
         self.code = code
         self.target = target
         self.conn = None
@@ -41,6 +41,10 @@ class ConnectionHandler(object):
     if data == 'TMP_READ':
       # XXX sensor name should be a param of the request
       return Command(READ_TEMP, 'temp1')
+    elif data == 'TAKE_PICTURE':
+      return Command(TAKE_PICTURE)
+    else:
+      print 'ERROR -- command unparse failed - not supported'
     return None
 
   def send(self, command, result):

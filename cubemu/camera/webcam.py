@@ -9,4 +9,6 @@ def takePicture():
   img = cam.get_image()
   path = 'filename.jpg'
   pygame.image.save(img, path)
-  return img, path
+  cam.stop()
+
+  return pygame.image.tostring(img, 'RGB'), path
