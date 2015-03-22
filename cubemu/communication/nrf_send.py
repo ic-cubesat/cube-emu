@@ -121,6 +121,7 @@ def main():
   data = raw_input("Send?")
   if(data != '0'):
     send_string(data_array)
+  f.close()
   ser.close()
 
 if __name__ == '__main__':

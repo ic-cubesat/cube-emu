@@ -35,6 +35,7 @@ def strip(data):
 def main():
     signal.signal(signal.SIGINT, signal_handler)
     serial_port = sys.argv[1]
+    file_path = sys.argv[2]
     global ser
     ser = serial.Serial(port=serial_port, baudrate=57600, timeout=0, interCharTimeout = None)
     print("connected to: " + ser.portstr)
@@ -56,7 +57,13 @@ def main():
                     for i in range(len(received)):
                         received[i] = strip(received[i])
                     print received
-    ser.close()
+    f = open(file_path, 'wb')
+	data = []
+	for i in received:
+		data.extend(i)
+	f.write(data)
+	f.close()
+	ser.close()
 
 
 if __name__ == '__main__':
