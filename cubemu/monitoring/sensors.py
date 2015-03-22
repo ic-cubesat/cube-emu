@@ -19,7 +19,7 @@ def check(sensorName):
     print 'Sensor unavailable'
     return None
 
-def getPosition(t=time.time()%5400):
-    x = t*(360./5400) 
-    y = 180*np.sin(x*np.pi/180) + 180 
+def getPosition():
+    x = time.time()%5400*(360./5400)
+    y = 180*np.sin(x*np.pi/180) + 180
     return x, y
