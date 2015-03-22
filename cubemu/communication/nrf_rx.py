@@ -31,6 +31,13 @@ def strip_endline(data):
             s = s+i
     return s
 
+def strip(data):
+    output = ''
+    for i in range(len(data)):
+        if data[i] != '#' and i>2:
+            output = output + data[i]
+    return output
+
 #filename = strftime("%Y%m%d%H%M%S", gmtime()) + ".jpeg"
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -64,6 +71,11 @@ while receive == 1:
                 received.append(content)
                 ser.write("T:S:" + str(check(content)) + "\n")
                 print "Done Writing"
+                print received
+                for i in range(len(received)):
+                    received[i] = strip(received[i])
+
+                print received
         """
         elif 'end' in content:
             receive = 0
@@ -73,5 +85,4 @@ while receive == 1:
             print "Done Writing"
             print "Received: " , received
         """
-
 ser.close()
