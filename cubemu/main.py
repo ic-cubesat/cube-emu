@@ -12,6 +12,8 @@ def process(command):
         return str(sensors.read(command.target))
     elif command.code == basic.TAKE_PICTURE:
         return webcam.takePicture()[0]
+    elif command.code == basic.READ_POSITION:
+        return str(sensors.getPosition())
     return None
 
 

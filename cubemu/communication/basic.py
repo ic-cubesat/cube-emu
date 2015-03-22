@@ -4,8 +4,9 @@ import socket
 
 READ_TEMP = 0
 TAKE_PICTURE = 1
+READ_POSITION = 2
 
-commands = ['READ_TEMP', 'TAKE_PICTURE']
+commands = ['READ_TEMP', 'TAKE_PICTURE', 'READ_POSITION']
 
 class Command(object):
     def __init__(self, code, target = None):
@@ -43,6 +44,8 @@ class ConnectionHandler(object):
       return Command(READ_TEMP, 'temp1')
     elif data == 'TAKE_PICTURE':
       return Command(TAKE_PICTURE)
+    elif data == 'POS_READ':
+      return Command(READ_POSITION)
     else:
       print 'ERROR -- command unparse failed - not supported'
     return None
